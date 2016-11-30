@@ -28,6 +28,13 @@ func SegmentsToString(segs []Segment, searchMode bool) (output string) {
 	return
 }
 
+func SegmentsToStringMine(segs []Segment) (output []string) {
+	for _, seg := range segs {
+		output = append(output, fmt.Sprintf("%s", textSliceToString(seg.token.text)))
+	}
+	return
+}
+
 func tokenToString(token *Token) (output string) {
 	for _, s := range token.segments {
 		output += tokenToString(s.token)
