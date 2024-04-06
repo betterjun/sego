@@ -35,6 +35,32 @@ func SegmentsToStringMine(segs []Segment) (output []string) {
 	return
 }
 
+func SegmentsToStringArray(segs []Segment) (output []string) {
+	for _, seg := range segs {
+		output = append(output, tokenToString2(seg.token))
+	}
+	return output
+}
+
+func tokenToString2(token *Token) (output string) {
+	hasOnlyTerminalToken := true
+	for _, s := range token.segments {
+		if len(s.token.segments) > 1 {
+			hasOnlyTerminalToken = false
+		}
+	}
+
+	if !hasOnlyTerminalToken {
+		for _, s := range token.segments {
+			if s != nil {
+				output += tokenToString2(s.token)
+			}
+		}
+	}
+	output += fmt.Sprintf("%s ", textSliceToString(token.text))
+	return
+}
+
 func tokenToString(token *Token) (output string) {
 	hasOnlyTerminalToken := true
 	for _, s := range token.segments {
